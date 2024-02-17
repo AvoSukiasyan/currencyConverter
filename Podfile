@@ -6,6 +6,8 @@ target 'CurrencyConverter' do
   use_frameworks!
 
   # Pods for CurrencyConverter
+  
+  pod 'AlertToast'
 
   target 'CurrencyConverterTests' do
     inherit! :search_paths

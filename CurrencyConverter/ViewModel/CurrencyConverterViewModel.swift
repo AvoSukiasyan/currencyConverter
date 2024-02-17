@@ -23,6 +23,8 @@ class CurrencyConverterViewModel: ObservableObject, CurrencyConverterViewModelPr
     
     @Published var loading: Bool = false
     @Published var history: [CurrencyConversion] = []
+    @Published var isShowingAlert = false
+    @Published var errorMssage: String = "Error"
     @Published var currencyConversion: CurrencyConversion {
         didSet {
             if currencyConversion.amount.isEmpty {
@@ -49,6 +51,7 @@ class CurrencyConverterViewModel: ObservableObject, CurrencyConverterViewModelPr
         }
         DispatchQueue.main.async {
             self.loading = true
+            self.isShowingAlert = false
         }
         makeRequest()
     }
@@ -68,9 +71,16 @@ class CurrencyConverterViewModel: ObservableObject, CurrencyConverterViewModelPr
             switch result {
             case .success(let data):
                 self?.handleData(response: data)
+                DispatchQueue.main.async {
+                    self?.loading = false
+                }
             case .failure(let error):
                 print(error)
-                self?.loading = false
+                DispatchQueue.main.async {
+                    self?.errorMssage = error.localizedDescription
+                    self?.isShowingAlert = true
+                    self?.loading = false
+                }
             }
         }
     }

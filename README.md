@@ -34,6 +34,3 @@ Repository: CurrencyPairRepository will serve as an intermediary between the Vie
 UI: SwiftUI will be used for the UI layer. Views will be organized in the Views folder. The UI will interact with the ViewModel using SwiftUI's data bindings and ObservableObject.
 
 Unit Tests: I wrote test only for CurrencyConverterViewModel as example
-
-
-

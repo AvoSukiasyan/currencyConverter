@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct CurrencyConverterView: View {
     @ObservedObject var viewModel: CurrencyConverterViewModel
@@ -37,7 +38,13 @@ struct CurrencyConverterView: View {
                     ProgressView()
                 }
             }
-        }
+        } .overlay(
+            Group {
+                if viewModel.isShowingAlert {
+                    AlertToast(displayMode: .banner(.pop), type: .error(.red), title: viewModel.errorMssage)
+                }
+            }
+        )
     }
     
     @ViewBuilder
